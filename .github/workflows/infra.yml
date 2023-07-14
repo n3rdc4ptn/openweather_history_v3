@@ -33,6 +33,7 @@ jobs:
         working-directory: ./terraform
 
       - id: plan
+        name: "Plan"
         env:
           TF_AUTO_VARS: ${{ secrets.TF_AUTO_VARS }}
         run: |
@@ -41,17 +42,14 @@ jobs:
           terraform plan -no-color -input=false
         working-directory: ./terraform
 
-      - run: echo ${{ steps.plan.outputs.stdout }}
-      - run: echo ${{ steps.plan.outputs.stderr }}
-      - run: echo ${{ steps.plan.outputs.exitcode }}
-
   apply:
     name: "Apply"
     needs: plan
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - run: |
+      - name: "Apply"
+        run: |
           echo "$TF_AUTO_VARS" > terraform.auto.tfvars
           terraform apply -input=false -auto-approve
         env:
