@@ -50,6 +50,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+
+      - name: "Use gcloud CLI"
+        run: "gcloud info"
+
+      - uses: hashicorp/setup-terraform@v2
+
       - name: "Apply"
         run: |
           echo "$TF_AUTO_VARS" > terraform.auto.tfvars
