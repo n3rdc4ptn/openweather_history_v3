@@ -10,9 +10,6 @@ jobs:
   plan:
     runs-on: ubuntu-latest
 
-    outputs:
-      terraform_plan: ${{ steps.plan.outputs.stdout }}
-
     steps:
       - uses: actions/checkout@v3
 
@@ -39,8 +36,14 @@ jobs:
         run: |
           echo "$TF_AUTO_VARS" > terraform.auto.tfvars
 
-          terraform plan -no-color -input=false
+          terraform plan -no-color -input=false -out=tfplan
         working-directory: ./terraform
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: tfplan
+          path: terraform/tfplan
+          if-no-files-found: error
 
   apply:
     name: "Apply"
@@ -66,11 +69,14 @@ jobs:
       - run: terraform init
         working-directory: ./terraform
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: tfplan
+
       - name: "Apply"
         run: |
           echo "$TF_AUTO_VARS" > terraform.auto.tfvars
-          terraform apply -input=false -auto-approve
+          terraform apply -input=false -auto-approve tfplan
         env:
-          PLAN: "terraform\n${{ needs.plan.outputs.terraform_plan }}"
           TF_AUTO_VARS: ${{ secrets.TF_AUTO_VARS }}
         working-directory: ./terraform
