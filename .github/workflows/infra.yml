@@ -1,4 +1,4 @@
-name: Terraform Digger
+name: Terraform Infrastructure
 
 on:
   push:
@@ -33,7 +33,12 @@ jobs:
         working-directory: ./terraform
 
       - id: plan
-        run: terraform plan -no-color -input=false
+        env:
+          TF_AUTO_VARS: ${{ secrets.TF_AUTO_VARS }}
+        run: |
+          echo "$TF_AUTO_VARS" > terraform.auto.tfvars
+
+          terraform plan -no-color -input=false
         working-directory: ./terraform
 
       - run: echo ${{ steps.plan.outputs.stdout }}
@@ -46,6 +51,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - run: terraform apply -input=false -auto-approve
+      - run: |
+          echo "$TF_AUTO_VARS" > terraform.auto.tfvars
+          terraform apply -input=false -auto-approve
         env:
           PLAN: "terraform\n${{ needs.plan.outputs.terraform_plan }}"
+          TF_AUTO_VARS: ${{ secrets.TF_AUTO_VARS }}
