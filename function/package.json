@@ -1,0 +1,17 @@
+{
+  "name": "function",
+  "version": "1.0.0",
+  "description": "",
+  "main": "function.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/bigquery": "^6.2.1",
+    "@google-cloud/functions-framework": "^3.3.0"
+  },
+  "scripts": {
+    "start": "functions-framework --target=get-rain",
+    "start-fetch": "functions-framework --target=collect-data"
+  }
+}
