@@ -35,8 +35,6 @@ resource "google_bigquery_table" "default" {
   dataset_id = google_bigquery_dataset.dataset.dataset_id
   table_id   = "weather_data"
 
-  deletion_protection = false
-
   time_partitioning {
     type          = "DAY"
     field         = "timestamp"
