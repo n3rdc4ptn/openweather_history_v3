@@ -55,3 +55,4 @@ jobs:
         env:
           PLAN: "terraform\n${{ needs.plan.outputs.terraform_plan }}"
           TF_AUTO_VARS: ${{ secrets.TF_AUTO_VARS }}
+        working-directory: ./terraform
