@@ -63,6 +63,9 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v2
 
+      - run: terraform init
+        working-directory: ./terraform
+
       - name: "Apply"
         run: |
           echo "$TF_AUTO_VARS" > terraform.auto.tfvars
