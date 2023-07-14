@@ -36,7 +36,9 @@ jobs:
         run: |
           echo "$TF_AUTO_VARS" > terraform.auto.tfvars
 
-          terraform plan -no-color -input=false -out=tfplan >> $GITHUB_STEP_SUMMARY
+          terraform plan -no-color -input=false -out=tfplan
+
+          terraform show tfplan >> $GITHUB_STEP_SUMMARY
         working-directory: ./terraform
 
       - uses: actions/upload-artifact@v3
