@@ -49,6 +49,12 @@ jobs:
           path: terraform/tfplan
           if-no-files-found: error
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: functionarchive
+          path: terraform/function.zip
+          if-no-files-found: error
+
   apply:
     name: "Apply"
     needs: plan
@@ -78,8 +84,14 @@ jobs:
           name: tfplan
           path: terraform
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: functionarchive
+          path: terraform
+
       - name: "Apply"
         run: |
+          mv functionarchive/function.zip function.zip
           echo "$TF_AUTO_VARS" > terraform.auto.tfvars
           terraform apply -input=false -auto-approve tfplan
         env:
