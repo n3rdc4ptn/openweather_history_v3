@@ -91,7 +91,6 @@ jobs:
 
       - name: "Apply"
         run: |
-          mv functionarchive/function.zip function.zip
           echo "$TF_AUTO_VARS" > terraform.auto.tfvars
           terraform apply -input=false -auto-approve tfplan
         env:
