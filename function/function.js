@@ -65,6 +65,8 @@ functions.http('get-rain', async (req, res) => {
         return;
     }
 
+    console.debug(rows);
+
     res.json({
         type: 'sum',
         value: rows[0].rain_sum,
