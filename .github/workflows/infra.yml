@@ -13,6 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Add locations.json to the functions directory.
+        run: echo ${{ secrets.LOCATIONS_JSON }} > locations.json
+        working-directory: ./function
+
       - id: "auth"
         uses: "google-github-actions/auth@v1"
         with:
