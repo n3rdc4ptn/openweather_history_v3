@@ -14,7 +14,9 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Add locations.json to the functions directory.
-        run: echo "${{ secrets.LOCATIONS_JSON }}" > locations.json
+        run: echo '$LOCATIONS_JSON' > locations.json
+        env:
+          LOCATIONS_JSON: ${{ secrets.LOCATIONS_JSON }}
         working-directory: ./function
 
       - id: "auth"
