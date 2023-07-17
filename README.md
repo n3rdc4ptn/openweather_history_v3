@@ -39,7 +39,7 @@ It should look like this:
 The names of the locations are then used when getting the rain sum.
 
 
-To deploy the project you need to go into the terraform directory and have google cloud au
+To deploy the project you need to go into the terraform directory:
 ```bash
 # ./terraform
 
