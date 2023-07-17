@@ -69,7 +69,7 @@ functions.http('get-rain', async (req, res) => {
 
     res.json({
         type: 'sum',
-        value: rows[0].rain_sum,
+        value: Math.round(rows[0].rain_sum * 100) / 100,
         unit: 'mm'
     })
 });
