@@ -69,3 +69,6 @@ To simply get your sum the URL looks like this:
 GET https://{API_GATEWAY_URL}/rain?range=1d&location={LOCATION_NAME}&key{YOUR_API_KEY}
 ```
 You can specify a range of days with `1d`. Currently only days are supported.
+
+## Contribution
+I am open for contributions. Just open a Issue or PR and we can discuss what can be improved or fixed :)
