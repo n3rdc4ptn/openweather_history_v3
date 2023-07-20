@@ -65,7 +65,11 @@ functions.http('get-rain', async (req, res) => {
         return;
     }
 
-    console.debug(rows);
+    console.debug({
+        type: 'sum',
+        value: Math.round(rows[0].rain_sum * 100) / 100,
+        unit: 'mm'
+    });
 
     res.json({
         type: 'sum',
